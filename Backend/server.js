@@ -19,7 +19,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://taskflow-1-6vt5.onrender.com"
+  "http://localhost:5174",
+    "https://task-flow-dusky-nine.vercel.app"
   ],
   credentials: true,
 }));

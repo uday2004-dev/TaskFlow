@@ -5,17 +5,6 @@ import Column from "./Column";
 const Board = () => {
   const [tasks, setTasks] = useState([]);
 
-  // const getAllTasks = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:3000/api/task/getAll-task"
-  //     );
-
-  //     setTasks(response.data.tasks);
-  //   } catch (error) {
-  //     console.error("Error fetching tasks:", error);
-  //   }
-  // };
 
   const getAllTasks = async () => {
   try {
