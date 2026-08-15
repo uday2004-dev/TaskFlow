@@ -1,84 +1,33 @@
-import express from "express"
-import dotenv from "dotenv"
-import connectDB from "./config/db.js"
-// import { taskRouter } from "./route/taskRoutes.js";
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+
+import connectDB from "./config/db.js";
 import taskRouter from "./route/taskRoutes.js";
 
-dotenv.config()
-const PORT=process.env.PORT
-const app=express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-connectDB()
+dotenv.config();
 
-app.use("/api/task",taskRouter)
+const app = express();
 
+// CORS — routes se PEHLE
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+
+app.use(express.json());
+
+connectDB();
+
+app.use("/api/task", taskRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=>{
-    console.log(`server is running in ${PORT} `)
-})
-
-
-
-// import express from "express";
-// import dotenv from "dotenv";
-// import cookieParser from "cookie-parser";
-// import connectDB from "./config/db.js";
-// import adminLogin from "./routes/adminLogin.js";
-// import projectRoutes from "./routes/projectRoute.js"
-// import serviceRoute from "./routes/serviceRoute.js";
-// import testimonialRoute from "./routes/testimonialRoute.js"
-// import blogRoute from "./routes/blogRoute.js"
-// import teamRoute from "./routes/teamRoute.js"
-// import inqueryRoute from "./routes/inqueryRoute.js"
-
-// import cors from "cors";
-
-// dotenv.config();
-
-// const app = express();
-// console.log("API KEY =>", process.env.CLOUDINARY_API_KEY);
-// connectDB();
-
-// const PORT = process.env.PORT;
-
-// app.get("/", (req, res) => {
-//   res.send("Server is running");
-// });
-
-
-
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "http://localhost:5174",
-//       "https://frontend-seven-rose-54.vercel.app",
-//       "https://demics.vercel.app",
-//       "https://demicscreativehub.com",
-//       "https://www.demicscreativehub.com",
-//     ],
-//     credentials: true,
-//   })
-// );
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
-
-// app.use("/api/admin", adminLogin);
-// app.use("/api/projects", projectRoutes);
-// app.use("/api/services",serviceRoute)
-// app.use("/api/blog",blogRoute)
-// app.use("/api/testimonial",testimonialRoute)
-// app.use("/api/team",teamRoute)
-// app.use("/api/inquery",inqueryRoute)
-
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`server is running on ${PORT}`);
+});

@@ -12,8 +12,12 @@ const taskSchema = new mongoose.Schema({
     priority: {
         type: String,
         enum: ["low", "medium", "high"],
-        required:true
-    }
+    },
+       status: {
+      type: String,
+      enum: ["todo", "progress", "done"],
+      default: "todo",
+    },
 },
     {
         timestamps: true,
@@ -23,40 +27,3 @@ const taskSchema = new mongoose.Schema({
 export const Tasks = mongoose.model("Task", taskSchema)
 
 
-
-// import mongoose, { Schema } from "mongoose";
-
-// const blogsSchema = mongoose.Schema({
-//     picture: {
-//         type:[String] ,
-//     },
-//     title: {
-//         type: String,
-//         required: true,
-//         unique: true,
-//     },
-//     services: {
-//         type: Schema.Types.ObjectId,
-//         ref: "Service",
-//         required: true,
-//     },
-//     description: {
-//         type: String,
-//         required: true,
-//     },
-//     heading: {
-//         type: String,
-//         required: true,
-//     },
-//     slug: {
-//     type: String,
-//     required: true,
-//     unique: true,
-// }
-// },
-//     {
-//         timestamps: true,
-//     }
-// )
-
-// export const Blogs=mongoose.model("Blogs",blogsSchema)
