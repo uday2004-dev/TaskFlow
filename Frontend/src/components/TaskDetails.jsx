@@ -16,17 +16,17 @@ const TaskDetails = ({ search }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const getAllTasks = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/task/getAll-task"
-      );
+const getAllTasks = async () => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/api/task/getAll-task`
+    );
 
-      setTasks(response.data.tasks);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
+    setTasks(response.data.tasks);
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+  }
+};
 
   useEffect(() => {
     getAllTasks();
