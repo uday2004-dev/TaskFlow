@@ -1,154 +1,4 @@
 
-// import { useState } from "react";
-// import axios from "axios";
-// import { FiPlus, FiX } from "react-icons/fi";
-// import TaskCard from "./TaskCard";
-
-// const Column = ({
-//   title,
-//   tasks,
-//   currentStatus,
-//   availableTasks,
-//   onTaskMoved,
-// }) => {
-//   const [showOptions, setShowOptions] = useState(false);
-//   const [loading, setLoading] = useState(false);
-
-//   // Current column ke according destination status
-//   const getMoveStatus = () => {
-//     if (currentStatus === "progress") {
-//       return {
-//         label: "Move to In Progress",
-//         value: "progress",
-//       };
-//     }
-
-//     if (currentStatus === "done") {
-//       return {
-//         label: "Move to Done",
-//         value: "done",
-//       };
-//     }
-
-//     return null;
-//   };
-
-//   const moveStatus = getMoveStatus();
-
-//   // Task ko current column mein move karna
-//   const moveTask = async (task) => {
-//     try {
-//       setLoading(true);
-
-//       await axios.patch(
-//         `http://localhost:3000/api/task/move-task/${task._id}`,
-//         {
-//           status: moveStatus.value,
-//         }
-//       );
-
-//       setShowOptions(false);
-
-//       if (onTaskMoved) {
-//         await onTaskMoved();
-//       }
-//     } catch (error) {
-//       console.error("Move Task Error:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="relative w-full bg-slate-100/70 rounded-xl p-3 sm:p-4 min-h-[450px] sm:min-h-[550px] lg:min-h-[600px]">
-
-//       {/* Column Header */}
-//       <div className="flex items-center justify-between mb-4 sm:mb-5">
-
-//         <div className="flex items-center gap-2 min-w-0">
-//           <h2 className="text-lg sm:text-xl font-semibold text-slate-900 truncate">
-//             {title}
-//           </h2>
-
-//           <span className="flex items-center justify-center min-w-6 sm:min-w-7 h-6 sm:h-7 px-2 rounded-full bg-slate-200 text-xs sm:text-sm text-slate-600 shrink-0">
-//             {tasks.length}
-//           </span>
-//         </div>
-
-//         {/* Move Task Icon Button */}
-//         {moveStatus && (
-//           <button
-//             onClick={() => setShowOptions((prev) => !prev)}
-//             className="p-1.5 sm:p-1 text-slate-700 hover:bg-slate-200 rounded-lg cursor-pointer shrink-0"
-//           >
-//             {showOptions ? (
-//               <FiX size={20} />
-//             ) : (
-//               <FiPlus size={20} />
-//             )}
-//           </button>
-//         )}
-//       </div>
-
-//       {/* Available Tasks Dropdown */}
-//       {showOptions && moveStatus && (
-//         <div className="absolute left-3 right-3 sm:left-auto sm:right-4 top-14 z-20 sm:w-64 max-w-[calc(100%-1.5rem)] bg-white border border-slate-200 rounded-lg shadow-lg p-2">
-
-//           <p className="px-3 py-2 text-xs font-semibold text-slate-400 uppercase">
-//             Available Tasks
-//           </p>
-
-//           {availableTasks.length === 0 ? (
-//             <p className="px-3 py-2 text-sm text-slate-400">
-//               No tasks available
-//             </p>
-//           ) : (
-//             <div className="max-h-60 overflow-y-auto">
-//               {availableTasks.map((task) => (
-//                 <button
-//                   key={task._id}
-//                   disabled={loading}
-//                   onClick={() => moveTask(task)}
-//                   className="w-full text-left px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 disabled:opacity-50 cursor-pointer"
-//                 >
-//                   <span className="block truncate">
-//                     {loading ? "Moving..." : task.title}
-//                   </span>
-//                 </button>
-//               ))}
-//             </div>
-//           )}
-//         </div>
-//       )}
-
-//       {/* Tasks */}
-//       <div className="flex flex-col gap-3">
-//         {tasks.map((task) => (
-//           <TaskCard
-//             key={task._id}
-//             task={task}
-//             loading={loading}
-//           />
-//         ))}
-//       </div>
-
-//       {/* Move Task Button */}
-//       {moveStatus && (
-//         <button
-//           onClick={() => setShowOptions((prev) => !prev)}
-//           className="flex items-center justify-center gap-2 w-full mt-4 sm:mt-5 py-2.5 sm:py-3 text-sm sm:text-base text-blue-600 hover:bg-blue-50 rounded-lg transition cursor-pointer"
-//         >
-//           <FiPlus size={18} />
-//           <span>{moveStatus.label}</span>
-//         </button>
-//       )}
-
-//     </div>
-//   );
-// };
-
-// export default Column;
-
 
 import { useState } from "react";
 import axios from "axios";
@@ -185,29 +35,54 @@ const Column = ({
 
   const moveStatus = getMoveStatus();
 
+  // const moveTask = async (task) => {
+  //   try {
+  //     setLoading(true);
+
+  //     await axios.patch(
+  //       `http://localhost:3000/api/task/move-task/${task._id}`,
+  //       {
+  //         status: moveStatus.value,
+  //       }
+  //     );
+
+  //     setShowOptions(false);
+
+  //     if (onTaskMoved) {
+  //       await onTaskMoved();
+  //     }
+
+  //   } catch (error) {
+  //     console.error("Move Task Error:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
   const moveTask = async (task) => {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      await axios.patch(
-        `http://localhost:3000/api/task/move-task/${task._id}`,
-        {
-          status: moveStatus.value,
-        }
-      );
-
-      setShowOptions(false);
-
-      if (onTaskMoved) {
-        await onTaskMoved();
+    await axios.patch(
+      `${import.meta.env.VITE_API_URL}/api/task/move-task/${task._id}`,
+      {
+        status: moveStatus.value,
       }
+    );
 
-    } catch (error) {
-      console.error("Move Task Error:", error);
-    } finally {
-      setLoading(false);
+    setShowOptions(false);
+
+    if (onTaskMoved) {
+      await onTaskMoved();
     }
-  };
+
+  } catch (error) {
+    console.error("Move Task Error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div

@@ -239,29 +239,54 @@ const Header = ({ search, setSearch }) => {
     }));
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3000/api/task/create-task",
+  //       formData
+  //     );
+
+  //     console.log(response.data);
+
+  //     setFormData({
+  //       title: "",
+  //       description: "",
+  //       priority: "medium",
+  //     });
+
+  //     setShowForm(false);
+
+  //   } catch (error) {
+  //     console.error("Create Task Error:", error);
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/task/create-task",
-        formData
-      );
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/task/create-task`,
+      formData
+    );
 
-      console.log(response.data);
+    console.log(response.data);
 
-      setFormData({
-        title: "",
-        description: "",
-        priority: "medium",
-      });
+    setFormData({
+      title: "",
+      description: "",
+      priority: "medium",
+    });
 
-      setShowForm(false);
+    setShowForm(false);
 
-    } catch (error) {
-      console.error("Create Task Error:", error);
-    }
-  };
+  } catch (error) {
+    console.error("Create Task Error:", error);
+  }
+};
 
   return (
     <>

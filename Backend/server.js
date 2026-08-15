@@ -10,11 +10,19 @@ dotenv.config();
 const app = express();
 
 // CORS — routes se PEHLE
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//   })
+// );
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://taskflow-1-6vt5.onrender.com"
+  ],
+  credentials: true,
+}));
 
 app.use(express.json());
 

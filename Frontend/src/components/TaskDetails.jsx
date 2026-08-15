@@ -450,80 +450,125 @@ const TaskDetails = ({ search }) => {
     setPriority(selectedTask.priority || "medium");
   }, [selectedTask]);
 
+  // const handleSaveChanges = async () => {
+  //   if (!selectedTask) {
+  //     alert("Search and select a task first");
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+
+  //     await axios.put(
+  //       `http://localhost:3000/api/task/update-task/${selectedTask._id}`,
+  //       {
+  //         title,
+  //         description,
+  //         priority,
+  //       }
+  //     );
+
+  //     await axios.patch(
+  //       `http://localhost:3000/api/task/move-task/${selectedTask._id}`,
+  //       {
+  //         status,
+  //       }
+  //     );
+
+  //     alert("Task updated successfully");
+
+  //     await getAllTasks();
+
+  //   } catch (error) {
+  //     console.error("Update Task Error:", error);
+
+  //     alert(
+  //       error.response?.data?.message ||
+  //       "Failed to update task"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSaveChanges = async () => {
-    if (!selectedTask) {
-      alert("Search and select a task first");
-      return;
-    }
+  if (!selectedTask) {
+    alert("Search and select a task first");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      await axios.put(
-        `http://localhost:3000/api/task/update-task/${selectedTask._id}`,
-        {
-          title,
-          description,
-          priority,
-        }
-      );
-
-      await axios.patch(
-        `http://localhost:3000/api/task/move-task/${selectedTask._id}`,
-        {
-          status,
-        }
-      );
-
-      alert("Task updated successfully");
-
-      await getAllTasks();
-
-    } catch (error) {
-      console.error("Update Task Error:", error);
-
-      alert(
-        error.response?.data?.message ||
-        "Failed to update task"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDeleteTask = async () => {
-    if (!selectedTask) return;
-
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this task?"
+    // Update title, description, priority
+    await axios.put(
+      `${import.meta.env.VITE_API_URL}/api/task/update-task/${selectedTask._id}`,
+      {
+        title,
+        description,
+        priority,
+      }
     );
 
-    if (!confirmDelete) return;
+    // Update status
+    await axios.patch(
+      `${import.meta.env.VITE_API_URL}/api/task/move-task/${selectedTask._id}`,
+      {
+        status,
+      }
+    );
 
-    try {
-      setLoading(true);
+    alert("Task updated successfully");
 
-      await axios.delete(
-        `http://localhost:3000/api/task/delete-task/${selectedTask._id}`
-      );
+    await getAllTasks();
 
-      alert("Task deleted successfully");
+  } catch (error) {
+    console.error("Update Task Error:", error);
 
-      setSelectedTask(null);
+    alert(
+      error.response?.data?.message ||
+      "Failed to update task"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
-      await getAllTasks();
 
-    } catch (error) {
-      console.error("Delete Task Error:", error);
 
-      alert(
-        error.response?.data?.message ||
-        "Failed to delete task"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleDeleteTask = async () => {
+  if (!selectedTask) return;
+
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this task?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    setLoading(true);
+
+    await axios.delete(
+      `${import.meta.env.VITE_API_URL}/api/task/delete-task/${selectedTask._id}`
+    );
+
+    alert("Task deleted successfully");
+
+    setSelectedTask(null);
+
+    await getAllTasks();
+
+  } catch (error) {
+    console.error("Delete Task Error:", error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to delete task"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <aside className="
